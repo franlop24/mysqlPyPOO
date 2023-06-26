@@ -37,22 +37,23 @@ class Category:
             
     @staticmethod
     def get(id):
-        with mydb.cursor() as cursor:
+        with mydb.cursor(dictionary=True) as cursor:
             sql = f"SELECT category, description FROM categories WHERE id = { id }"
             cursor.execute(sql)
             result = cursor.fetchone()
-            category = Category(result[0], result[1], id)
+            print(result)
+            category = Category(result["category"], result["description"], id)
             return category
         
     @staticmethod
     def get_all():
         categories = []
-        with mydb.cursor() as cursor:
+        with mydb.cursor(dictionary=True) as cursor:
             sql = f"SELECT id, category, description FROM categories"
             cursor.execute(sql)
             result = cursor.fetchall()
             for item in result:
-                categories.append(Category(item[1], item[2], item[0]))
+                categories.append(Category(item["category"], item["description"], item["id"]))
             return categories
     
     @staticmethod

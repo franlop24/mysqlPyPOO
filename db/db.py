@@ -7,5 +7,4 @@ def get_connection():
         password="example",
         database="mydatabase"
     )
-
     return mydb
